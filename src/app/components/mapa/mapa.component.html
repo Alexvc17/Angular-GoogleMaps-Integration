@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-title>Mapa</mat-card-title>
+    <mat-card-content>
+
+
+
+        <google-map height="400px" width="100%" [center]="{ lat: lat, lng: lng }" [zoom]="8" (mapClick)="agregarMarcador($event)">
+
+            <map-marker *ngFor="let marcador of marcadores; let i = index" #marker="mapMarker" [position]="{ lat: marcador.lat, lng: marcador.lng }" [title]="'Marcador 1'" (mapClick)="openInfoWindow(marker,i)">
+
+                <!--solo se renderizará y mostrará si el índice actual del marcador (i) es igual al índice almacenado en marcadorSeleccionadoIndex.-->
+                <map-info-window *ngIf="marcadorSeleccionadoIndex === i">
+                    <h2>Marcador {{i}}</h2>
+
+                    <strong>{{marcador.titulo}}</strong>
+                    <br>
+                    <br>
+                    <p>{{marcador.descripcion}}.</p>
+
+
+
+                    <div>
+                        <button mat-raised-button color="primary" (click)="editarMarcador(marcador)">Editar</button>
+                        <!--Debo saber que marcador mandar-->
+
+                        <button mat-raised-button color="warn" (click)="borrarMarcador(marcador, i)">Borrar</button>
+                    </div>
+                </map-info-window>
+
+
+            </map-marker>
+        </google-map>
+
+
+
+
+
+
+
+    </mat-card-content>
+</mat-card>
